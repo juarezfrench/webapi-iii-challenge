@@ -50,7 +50,23 @@ router.put('/:id', (req, res) => {
 // custom middleware
 
 function validatePostId(req, res, next) {
+    function validatePostId(req, res, next) {
+        Posts.getById(req.params.id)
+          .then(post => {
+            if (!post) {
+              res.status(400).json({ message: 'Invalid post ID' });
+            } else {
+              req.post = req.params.id;
+              next();
+            }
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).json({ message: 'Error validating post ID' });
+          });
+      
+      }
+      
+}})
 
-};
-
-module.exports = router;
+module.exports = router

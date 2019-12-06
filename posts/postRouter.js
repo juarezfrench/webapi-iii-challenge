@@ -1,9 +1,14 @@
-const express = 'express';
+const express = require('express');
 
-const router = express.Router();
+const router = require('express').Router();
+
+const Posts = require('./postDb');
+const Users = require('../users/userDb');
+
+
 
 router.get('/', (req, res) => {
-    router.get('/', (req, res) => {
+   
         Posts.get(req.query)
           .then(posts => res.status(200).json(posts))
           .catch(err => {
@@ -67,6 +72,6 @@ function validatePostId(req, res, next) {
       
       }
       
-}})
+}
 
 module.exports = router
